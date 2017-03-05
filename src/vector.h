@@ -30,6 +30,9 @@ struct Vector {
     void** data;
 };
 
+// copies a vector
+enum Error vector_copy(struct Vector* output, const struct Vector* input);
+
 /**
  * @brief Creates a new vector.
  *
@@ -58,5 +61,19 @@ void vector_delete(struct Vector* parameter);
  * @return Either "OKAY" or "MALLOC_ERROR"
  */
 enum Error vector_push(struct Vector* parameter, void* element);
+
+// remove last element of vector
+void vector_pop(struct Vector* parameter);
+
+// insert element into vector at given position
+enum Error vector_insert(
+        struct Vector* parameter, size_t index, void* element);
+
+// remove element from vector at given position
+enum Error vector_remove(struct Vector* parameter, size_t index);
+
+// remove element from vector at given position, replacing it with the last
+// element of the vector
+enum Error vector_swap_remove(struct Vector* parameter, size_t index);
 
 #endif
