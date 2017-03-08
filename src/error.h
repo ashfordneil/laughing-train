@@ -16,6 +16,8 @@ enum Error {
     OKAY,
     /// Malloc (or calloc, realloc, etc) returned an error.
     MALLOC_ERROR,
+    /// Attempting to access an element in a list that is out of range.
+    RANGE_ERROR,
 };
 
 #endif

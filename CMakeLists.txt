@@ -19,3 +19,7 @@ endif(DOXYGEN_FOUND)
 # Main Library
 add_subdirectory(src)
 include_directories(src)
+
+# Testing
+enable_testing()
+add_subdirectory(test)
