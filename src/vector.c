@@ -119,7 +119,27 @@ enum Error vector_remove(struct Vector* self, size_t index, void* value)
 
     memmove(self->data + self->element_size * index,
             self->data + self->element_size * (index + 1),
-            self->element_size * self->size - index - 1);
+            self->element_size * (self->size - index - 1));
+
+    self->size -= 1;
+
+    return OKAY;
+}
+
+enum Error vector_swap_remove(struct Vector* self, size_t index, void* value)
+{
+    if (self->size <= index) {
+        return RANGE_ERROR;
+    }
+
+    if (value != NULL) {
+        memcpy(value, self->data + self->element_size * index,
+                self->element_size);
+    }
+
+    memcpy(self->data + self->element_size * index,
+            self->data + self->element_size * (self->size - 1),
+            self->element_size);
 
     self->size -= 1;
 

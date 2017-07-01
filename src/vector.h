@@ -90,7 +90,6 @@ enum Error vector_pop(struct Vector* self, void* value);
 enum Error vector_insert(
         struct Vector* self, size_t index, const void* element);
 
-// remove element from vector at given position
 /**
  * @brief Remove element from the vector at given position.
  *
@@ -102,8 +101,15 @@ enum Error vector_insert(
  */
 enum Error vector_remove(struct Vector* self, size_t index, void* value);
 
-// remove element from vector at given position, replacing it with the last
-// element of the vector
-enum Error vector_swap_remove(struct Vector* self, size_t index);
+/**
+ * @brief Remove element from vector at given position, placing the last
+ * element of the vector in its position.
+ * @param self The vector being removed from.
+ * @param index The index of the element to remove.
+ * @param value The location in memory to store the value after it is removed.
+ *
+ * @return Either "OKAY" or "RANGE_ERROR"
+ */
+enum Error vector_swap_remove(struct Vector* self, size_t index, void* value);
 
 #endif
