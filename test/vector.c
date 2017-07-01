@@ -107,6 +107,36 @@ void test_insert()
     vector_delete(&vector);
 }
 
+void test_remove()
+{
+    struct Vector vector;
+    enum Error error;
+    int* array;
+    int x;
+
+    error = vector_create(&vector, sizeof(int), NULL);
+    assert(error == OKAY);
+
+    for (int i = 0; i < 5; ++i) {
+        error = vector_push(&vector, &i);
+        assert(error == OKAY);
+    }
+
+    error = vector_remove(&vector, 2, &x);
+    assert(error == OKAY);
+    assert(x == 2);
+
+    array = vector.data;
+    for (int i = 0; i < 2; ++i) {
+        assert(array[i] == i);
+    }
+    for (int i = 2; i < 4; ++i) {
+        assert(array[i] == i + 1);
+    }
+
+    vector_delete(&vector);
+}
+
 int main(int argc, char** argv)
 {
     if (argc != 2) {
@@ -122,6 +152,8 @@ int main(int argc, char** argv)
         test_pop();
     } else if (!strcmp("INSERT", argv[1])) {
         test_insert();
+    } else if (!strcmp("REMOVE", argv[1])) {
+        test_remove();
     } else {
         fprintf(stderr, "Invalid argument.\n");
         return 2;
