@@ -186,6 +186,10 @@ void test_swap_remove()
     vector_delete(&vector);
 }
 
+/**
+ * Tests the vector_copy function.
+ * Assumes working implementations of create, delete and push.
+ */
 void test_copy()
 {
     struct Vector first, second;
