@@ -76,6 +76,10 @@ void test_pop()
     vector_delete(&vector);
 }
 
+/**
+ * Test the vector_insert function.
+ * Assumes working implementations of the create, delete and push functions.
+ */
 void test_insert()
 {
     struct Vector vector;
@@ -110,6 +114,10 @@ void test_insert()
     vector_delete(&vector);
 }
 
+/**
+ * Tests the vector_remove function.
+ * Assumes working implementations of the create, delete and push functions.
+ */
 void test_remove()
 {
     struct Vector vector;
