@@ -4,6 +4,27 @@
 
 #define INITIAL_CAPACITY 10
 
+enum Error vector_copy(struct Vector* self, const struct Vector* input)
+{
+    struct Vector output;
+
+    output.destroy = input->destroy;
+    output.element_size = input->element_size;
+    output.capacity = input->capacity;
+    output.size = input->size;
+    output.data = malloc(output.element_size * output.capacity);
+
+    if (output.data == NULL) {
+        return MALLOC_ERROR;
+    }
+
+    memcpy(output.data, input->data, output.size * output.element_size);
+
+    memcpy(self, &output, sizeof(struct Vector));
+
+    return OKAY;
+}
+
 enum Error vector_create(
         struct Vector* self, size_t element_size, void (*destroy)(void*))
 {
@@ -19,7 +40,7 @@ enum Error vector_create(
         return MALLOC_ERROR;
     }
 
-    memmove(self, &output, sizeof(struct Vector));
+    memcpy(self, &output, sizeof(struct Vector));
 
     return OKAY;
 }

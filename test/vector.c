@@ -40,8 +40,7 @@ void test_push()
 
     array = vector.data;
     for (int i = 0; i < 5; ++i) {
-        assert(i == array[i]);
-    }
+        assert(i == array[i]);    }
 
     vector_delete(&vector);
 }
@@ -187,6 +186,34 @@ void test_swap_remove()
     vector_delete(&vector);
 }
 
+void test_copy()
+{
+    struct Vector first, second;
+    enum Error error;
+    int* first_array;
+    int* second_array;
+
+    error = vector_create(&first, sizeof(int), NULL);
+    assert(error == OKAY);
+
+    for (int i = 0; i < 5; ++i) {
+        error = vector_push(&first, &i);
+        assert(error == OKAY);
+    }
+    first_array = first.data;
+
+    error = vector_copy(&second, &first);
+    assert(error == OKAY);
+    
+    second_array = second.data;
+    for (int i = 0; i < 5; ++i) {
+        assert(first_array[i] == second_array[i]);
+    }
+
+    vector_delete(&first);
+    vector_delete(&second);
+}
+
 int main(int argc, char** argv)
 {
     if (argc != 2) {
@@ -206,6 +233,8 @@ int main(int argc, char** argv)
         test_remove();
     } else if (!strcmp("SWAP_REMOVE", argv[1])) {
         test_swap_remove();
+    } else if (!strcmp("COPY", argv[1])) {
+        test_copy();
     } else {
         fprintf(stderr, "Invalid argument.\n");
         return 2;
