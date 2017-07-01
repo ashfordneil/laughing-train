@@ -152,6 +152,41 @@ void test_remove()
     vector_delete(&vector);
 }
 
+void test_swap_remove()
+{
+    struct Vector vector;
+    enum Error error;
+    int* array;
+    int x;
+
+    error = vector_create(&vector, sizeof(int), NULL);
+    assert(error == OKAY);
+
+    for (int i = 0; i < 5; ++i) {
+        error = vector_push(&vector, &i);
+        assert(error == OKAY);
+    }
+
+    error = vector_swap_remove(&vector, 2, &x);
+    assert(error == OKAY);
+    assert(x == 2);
+    assert(vector.size == 4);
+
+    array = vector.data;
+    for (int i = 0; i < 2; ++i) {
+        assert(array[i] == i);
+    }
+    assert(array[2] == 4);
+    for (int i = 3; i < 4; ++i) {
+        assert(array[i] == i);
+    }
+
+    error = vector_swap_remove(&vector, 12, NULL);
+    assert(error == RANGE_ERROR);
+
+    vector_delete(&vector);
+}
+
 int main(int argc, char** argv)
 {
     if (argc != 2) {
@@ -169,6 +204,8 @@ int main(int argc, char** argv)
         test_insert();
     } else if (!strcmp("REMOVE", argv[1])) {
         test_remove();
+    } else if (!strcmp("SWAP_REMOVE", argv[1])) {
+        test_swap_remove();
     } else {
         fprintf(stderr, "Invalid argument.\n");
         return 2;
