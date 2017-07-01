@@ -32,7 +32,14 @@ struct Vector {
     void* data;
 };
 
-// copies a vector
+/**
+ * @brief Copies a vector.
+ *
+ * @param output The location in memory to store the copy of the vector.
+ * @param input The vector to be copied.
+
+ * @return Either "OKAY" or "MALLOC_ERROR".
+ */
 enum Error vector_copy(struct Vector* output, const struct Vector* input);
 
 /**
