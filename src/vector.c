@@ -98,7 +98,8 @@ enum Error vector_insert(
     }
 
     memmove(self->data + (index + 1) * self->element_size,
-            self->data + index * self->element_size, self->size - index - 1);
+            self->data + index * self->element_size,
+            self->element_size * (self->size - index - 1));
 
     memcpy(self->data + index * self->element_size, element,
             self->element_size);
