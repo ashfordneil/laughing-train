@@ -104,6 +104,8 @@ enum Error vector_insert(
     memcpy(self->data + index * self->element_size, element,
             self->element_size);
 
+    self->size += 1;
+
     return OKAY;
 }
 

@@ -36,6 +36,7 @@ void test_push()
         assert(error == OKAY);
         assert(vector.capacity >= vector.size);
     }
+    assert(vector.size == 5);
 
     array = vector.data;
     for (int i = 0; i < 5; ++i) {
@@ -66,6 +67,7 @@ void test_pop()
         error = vector_pop(&vector, &j);
         assert(error == OKAY);
         assert(i == j);
+        assert(vector.size == i);
     }
 
     error = vector_pop(&vector, NULL);
@@ -91,6 +93,7 @@ void test_insert()
 
     error = vector_insert(&vector, 2, &x);
     assert(error == OKAY);
+    assert(vector.size == 6);
     array = vector.data;
 
     assert(array[2] == x);
@@ -125,6 +128,7 @@ void test_remove()
     error = vector_remove(&vector, 2, &x);
     assert(error == OKAY);
     assert(x == 2);
+    assert(vector.size == 4);
 
     array = vector.data;
     for (int i = 0; i < 2; ++i) {
@@ -133,6 +137,9 @@ void test_remove()
     for (int i = 2; i < 4; ++i) {
         assert(array[i] == i + 1);
     }
+
+    error = vector_remove(&vector, 12, NULL);
+    assert(error == RANGE_ERROR);
 
     vector_delete(&vector);
 }
