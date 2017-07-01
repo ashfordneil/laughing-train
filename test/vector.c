@@ -101,6 +101,9 @@ void test_insert()
         assert(array[i + 1] = i);
     }
 
+    error = vector_insert(&vector, 12, &x);
+    assert(error == RANGE_ERROR);
+
     vector_delete(&vector);
 }
 
