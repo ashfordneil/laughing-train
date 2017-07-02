@@ -151,6 +151,10 @@ void test_remove()
     vector_delete(&vector);
 }
 
+/**
+ * Tests the vector_swap_remove function.
+ * Assumes working implementations of the create, delete and push functions.
+ */
 void test_swap_remove()
 {
     struct Vector vector;
